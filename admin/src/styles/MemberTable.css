@@ -1,0 +1,99 @@
+.member-table-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.table-filters {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.filter-select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    min-width: 150px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.member-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.member-table th {
+    background: #f9fafb;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.member-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #4b5563;
+}
+
+.member-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px;
+    color: #9ca3af;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-yes {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge-no {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.delete-button {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background: #dc2626;
+}
+
+.table-footer {
+    margin-top: 16px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
