@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
             .limit(1);
 
         if (schema.length === 0) {
-            // Return default schema if none exists
             return res.json({
                 version: 1,
                 elements: getDefaultSchema(),
@@ -72,12 +71,12 @@ function getDefaultSchema() {
         { name: 'firstName', label: 'First Name', type: 'text', required: true },
         { name: 'lastName', label: 'Last Name', type: 'text', required: true },
         { name: 'dob', label: 'Date of Birth', type: 'date', required: false },
-        { name: 'gender', label: 'Gender', type: 'select', options: ['Male', 'Female', 'Other'], required: false },
+        { name: 'gender', label: 'Gender', type: 'select', options: ['Male', 'Female'], required: false },
         { name: 'phone', label: 'Phone Number', type: 'text', required: false },
         { name: 'address', label: 'Address', type: 'textarea', required: false },
         { name: 'baptized', label: 'Baptized?', type: 'boolean', required: false },
-        { name: 'waterBaptized', label: 'Water Baptism?', type: 'boolean', required: false },
-        { name: 'holyGhostBaptized', label: 'Holy Ghost Baptism?', type: 'boolean', required: false },
+        { name: 'waterBaptized', label: 'Water Baptism?', type: 'boolean', required: false, conditional: { field: 'baptized', value: true } },
+        { name: 'holyGhostBaptized', label: 'Holy Ghost Baptism?', type: 'boolean', required: false, conditional: { field: 'baptized', value: true } },
         { name: 'presidingElder', label: 'Presiding Elder Name', type: 'text', required: false },
         { name: 'working', label: 'Working?', type: 'boolean', required: false },
         {
@@ -88,7 +87,7 @@ function getDefaultSchema() {
             conditional: { field: 'working', value: true }
         },
         { name: 'maritalStatus', label: 'Marital Status', type: 'select', options: ['Single', 'Married', 'Divorced', 'Widowed'], required: false },
-        { name: 'childrenCount', label: 'Number of Children', type: 'number', required: false },
+        { name: 'childrenCount', label: 'Number of Children', type: 'number', required: false, conditional: { field: 'maritalStatus', value: 'Single', negate: true } },
         { name: 'ministry', label: 'Ministry/Department', type: 'select', options: ['Choir', 'Ushering', 'Youth', 'Prayer', 'Other'], required: false },
         { name: 'joinedDate', label: 'Date Joined Church', type: 'date', required: false },
         { name: 'prayerRequests', label: 'Prayer Requests', type: 'textarea', required: false },

@@ -24,11 +24,37 @@ router.post('/', async (req, res) => {
                 // Check if record exists by ID
                 const existing = await db.select().from(members).where(eq(members.id, record.id)).limit(1);
 
+                // Sanitize record for DB
+                const sanitizeRecord = (data) => {
+                    const clean = { ...data };
+
+                    // Helper to safely convert to Date
+                    const safeDate = (val) => {
+                        if (!val) return null;
+                        const d = new Date(val);
+                        return isNaN(d.getTime()) ? null : d;
+                    };
+
+                    // Ensure timestamp fields are valid Date objects
+                    // If invalid or missing, fallback to current time for these non-nullable fields
+                    clean.createdAt = safeDate(clean.createdAt) || new Date();
+                    clean.updatedAt = safeDate(clean.updatedAt) || new Date();
+
+                    // Convert potentially empty strings to null for optional fields
+                    if (clean.dob === '') clean.dob = null;
+                    if (clean.joinedDate === '') clean.joinedDate = null;
+                    if (clean.age === '') clean.age = null; // handle empty strings for integers if any
+
+                    return clean;
+                };
+
+                const cleanRecord = sanitizeRecord(record);
+
                 if (existing.length > 0) {
                     // Update existing record (conflict resolution: last write wins)
                     const updated = await db.update(members)
                         .set({
-                            ...record,
+                            ...cleanRecord,
                             syncStatus: 'synced',
                             updatedAt: new Date(),
                         })
@@ -39,9 +65,10 @@ router.post('/', async (req, res) => {
                 } else {
                     // Insert new record
                     const inserted = await db.insert(members).values({
-                        ...record,
+                        ...cleanRecord,
                         syncStatus: 'synced',
-                        updatedAt: new Date(),
+                        updatedAt: new Date(), // Always set fresh update time
+                        // createdAt will be taken from cleanRecord if present, or defaultNow() by DB
                     }).returning();
 
                     results.success.push({ id: record.id, action: 'created', data: inserted[0] });
