@@ -1,268 +1,111 @@
 # Church Data Collection App
 
-A production-ready, offline-first mobile application for church member data collection with a comprehensive admin dashboard.
+🔗 **GitHub Repository:** https://github.com/Kwesikendy/moore.git
 
-## 🏗️ Project Structure
+## 📦 Project Summary
 
-```
-moore/
-├── backend/          # Node.js + Express API
-├── mobile/           # React Native + Expo mobile app
-└── admin/            # React admin dashboard
-```
+A complete, production-ready church data collection system with:
+- **Backend API** (Node.js + Express + Neon Postgres)
+- **Mobile App** (React Native + Expo with offline-first architecture)
+- **Admin Dashboard** (React + Vite with analytics)
+
+## ✅ What's Included
+
+### Backend (`/backend`)
+- REST API with JWT authentication
+- Neon.tech PostgreSQL database (connected and ready)
+- Member CRUD operations
+- Bulk sync endpoint for mobile
+- Dynamic form schema management
+
+### Mobile App (`/mobile`)
+- Church logo splash screen
+- Dynamic member registration form
+- SQLite offline storage
+- Automatic sync when online
+- Network status detection
+- Conditional field logic
+
+### Admin Dashboard (`/admin`)
+- Secure login system
+- Member management (view, search, filter, delete)
+- CSV export functionality
+- Analytics with charts (gender, baptism, ministry, age)
+- Form builder placeholder (ready for implementation)
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 1. Clone Repository
+```bash
+git clone https://github.com/Kwesikendy/moore.git
+cd moore
+```
 
-- Node.js 18+ and npm
-- Expo CLI (`npm install -g expo-cli`)
-- Neon.tech Postgres database account
-- Render.com account (for deployment)
-
-### 1. Backend Setup
-
+### 2. Backend Setup
 ```bash
 cd backend
-
-# Install dependencies
 npm install
-
-# Create .env file
-cp .env.example .env
-
-# Edit .env and add your Neon database URL
-# DATABASE_URL=postgresql://user:password@host/database?sslmode=require
-# JWT_SECRET=your-secret-key
-
-# Start development server
+# Database is already connected to Neon
 npm run dev
 ```
 
-The backend will run on `http://localhost:5000`
-
-### 2. Mobile App Setup
-
+### 3. Mobile App
 ```bash
 cd mobile
-
-# Install dependencies
 npm install
-
-# Update API URL in src/services/api.js if needed
-
-# Start Expo development server
 npx expo start
-
-# Scan QR code with Expo Go app (iOS/Android)
-# Or press 'w' for web, 'a' for Android emulator, 'i' for iOS simulator
 ```
 
-### 3. Admin Dashboard Setup
-
+### 4. Admin Dashboard
 ```bash
 cd admin
-
-# Install dependencies
 npm install
-
-# Create .env file
-cp .env.example .env
-
-# Start development server
 npm run dev
 ```
 
-The admin dashboard will run on `http://localhost:5173`
+## 🔑 Admin Credentials
 
-## 📱 Mobile App Features
+**Email:** admin@church.com  
+**Password:** ChurchAdmin2026
 
-- **Splash Screen**: Displays church logo on app launch
-- **Dynamic Form**: Renders based on server-defined schema
-- **Offline Storage**: SQLite database for local data persistence
-- **Auto-Sync**: Automatically syncs when internet connection is available
-- **Conditional Fields**: Shows/hides fields based on user input
-- **Validation**: Required field validation before submission
+## 📚 Documentation
 
-## 🖥️ Admin Dashboard Features
+- **[README.md](README.md)** - Full setup guide
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Production deployment steps
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick testing guide
 
-- **Secure Login**: JWT-based authentication
-- **Member Management**: View, search, filter, and delete members
-- **CSV Export**: Export member data to CSV
-- **Analytics**: Visual charts for:
-  - Gender distribution
-  - Baptism statistics
-  - Ministry distribution
-  - Age distribution
-- **Form Builder**: (Placeholder - ready for implementation)
+## 🗄️ Database
 
-## 🗄️ Database Schema
+**Provider:** Neon.tech (Serverless Postgres)  
+**Status:** ✅ Connected and schema created  
+**Tables:** admins, members, form_schema
 
-### Members Table
-- Personal info: firstName, lastName, dob, age, gender
-- Contact: phone, address
-- Church info: baptized, waterBaptized, holyGhostBaptized, presidingElder
-- Work: working, occupation
-- Family: maritalStatus, childrenCount
-- Ministry: ministry, joinedDate, prayerRequests
-- Metadata: JSONB for dynamic fields
-- Sync: syncStatus, createdAt, updatedAt
+## 🎯 Key Features
 
-### Admins Table
-- id, email, passwordHash, createdAt
+✅ Offline-first mobile architecture  
+✅ Automatic data synchronization  
+✅ Dynamic form system  
+✅ Real-time analytics  
+✅ CSV export  
+✅ Secure authentication  
+✅ Production-ready code  
 
-### Form Schema Table
-- id, version, elements (JSONB), isActive, createdAt
+## 📱 Tech Stack
 
-## 🔐 Security
+- **Backend:** Node.js, Express, Drizzle ORM, PostgreSQL
+- **Mobile:** React Native, Expo, SQLite
+- **Admin:** React, Vite, Recharts
+- **Database:** Neon.tech
 
-- JWT authentication for admin routes
-- Password hashing with bcrypt
-- HTTPS required in production
-- CORS configured
-- SQL injection protection via parameterized queries
+## 🚢 Deployment
 
-## 📦 Deployment
+Ready to deploy to:
+- **Backend:** Render.com
+- **Mobile:** Expo EAS / App Stores
+- **Admin:** Vercel / Netlify
 
-### Backend (Render)
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
 
-1. Create new Web Service on Render
-2. Connect your GitHub repository
-3. Set build command: `npm install`
-4. Set start command: `npm start`
-5. Add environment variables:
-   - `DATABASE_URL` (from Neon.tech)
-   - `JWT_SECRET` (generate a secure random string)
-   - `NODE_ENV=production`
+---
 
-### Mobile App (Expo)
-
-```bash
-cd mobile
-
-# Build for Android
-eas build --platform android
-
-# Build for iOS (requires Apple Developer account)
-eas build --platform ios
-
-# Or publish to Expo Go
-npx expo publish
-```
-
-### Admin Dashboard (Vercel/Netlify)
-
-```bash
-cd admin
-
-# Build for production
-npm run build
-
-# Deploy to Vercel
-vercel deploy
-
-# Or deploy to Netlify
-netlify deploy --prod
-```
-
-## 🔧 Configuration
-
-### Backend Environment Variables
-```env
-PORT=5000
-DATABASE_URL=postgresql://...
-JWT_SECRET=your-secret-key
-NODE_ENV=development
-```
-
-### Mobile App
-Update `src/services/api.js`:
-```javascript
-const API_BASE_URL = __DEV__ 
-  ? 'http://localhost:5000/api' 
-  : 'https://your-app.onrender.com/api';
-```
-
-### Admin Dashboard
-Update `.env`:
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-## 🧪 Testing
-
-### Create First Admin User
-
-```bash
-# Using curl or Postman
-POST http://localhost:5000/api/auth/register
-Content-Type: application/json
-
-{
-  "email": "admin@church.com",
-  "password": "SecurePassword123"
-}
-```
-
-### Test Mobile Offline Mode
-
-1. Open mobile app
-2. Turn off WiFi/mobile data
-3. Fill and submit form
-4. Check "pending sync" indicator
-5. Turn on internet
-6. Watch auto-sync happen
-
-## 📚 API Endpoints
-
-### Public
-- `GET /health` - Health check
-- `GET /api/schema` - Get form schema
-
-### Auth
-- `POST /api/auth/register` - Register admin
-- `POST /api/auth/login` - Login admin
-
-### Members (Admin only)
-- `GET /api/members` - List all members
-- `POST /api/members` - Create member
-- `PUT /api/members/:id` - Update member
-- `DELETE /api/members/:id` - Delete member
-
-### Sync
-- `POST /api/sync` - Bulk sync from mobile
-
-### Schema (Admin only)
-- `POST /api/schema` - Update form schema
-
-## 🛠️ Tech Stack
-
-**Backend:**
-- Node.js + Express
-- Drizzle ORM
-- PostgreSQL (Neon.tech)
-- JWT authentication
-- bcryptjs
-
-**Mobile:**
-- React Native
-- Expo SDK 54
-- expo-sqlite
-- React Navigation
-- NetInfo
-- AsyncStorage
-
-**Admin:**
-- React 18
-- Vite
-- React Router
-- Recharts
-- Axios
-
-## 📄 License
-
-MIT
-
-## 👥 Support
-
-For issues or questions, please contact the development team.
+**Built with ❤️ for Church of Pentecost - Moore District**
