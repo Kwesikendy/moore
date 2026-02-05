@@ -90,7 +90,7 @@ function getDefaultSchema() {
         { name: 'childrenCount', label: 'Number of Children', type: 'number', required: false, conditional: { field: 'maritalStatus', value: 'Single', negate: true } },
         { name: 'ministry', label: 'Ministry/Department', type: 'text', placeholder: 'e.g., Choir, Ushering, Youth, Prayer, Media', required: false },
         { name: 'joinedDate', label: 'Date Joined Church', type: 'date', required: false },
-        { name: 'picture', label: 'Profile Picture', type: 'text', placeholder: 'Enter image URL', required: false },
+        { name: 'picture', label: 'Profile Picture', type: 'image', required: false },
     ];
 }
 
