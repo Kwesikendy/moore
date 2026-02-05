@@ -88,9 +88,9 @@ function getDefaultSchema() {
         },
         { name: 'maritalStatus', label: 'Marital Status', type: 'select', options: ['Single', 'Married', 'Divorced', 'Widowed'], required: false },
         { name: 'childrenCount', label: 'Number of Children', type: 'number', required: false, conditional: { field: 'maritalStatus', value: 'Single', negate: true } },
-        { name: 'ministry', label: 'Ministry/Department', type: 'select', options: ['Choir', 'Ushering', 'Youth', 'Prayer', 'Other'], required: false },
+        { name: 'ministry', label: 'Ministry/Department', type: 'text', placeholder: 'e.g., Choir, Ushering, Youth, Prayer, Media', required: false },
         { name: 'joinedDate', label: 'Date Joined Church', type: 'date', required: false },
-        { name: 'prayerRequests', label: 'Prayer Requests', type: 'textarea', required: false },
+        { name: 'picture', label: 'Profile Picture', type: 'text', placeholder: 'Enter image URL', required: false },
     ];
 }
 

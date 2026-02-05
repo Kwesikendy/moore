@@ -28,7 +28,7 @@ const members = pgTable('members', {
   childrenCount: integer('children_count'),
   ministry: varchar('ministry', { length: 100 }),
   joinedDate: varchar('joined_date', { length: 50 }),
-  prayerRequests: text('prayer_requests'),
+  picture: text('picture'),
   metadata: jsonb('metadata'), // For dynamic fields
   syncStatus: varchar('sync_status', { length: 20 }).default('synced'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
