@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
                     if (clean.dob === '') clean.dob = null;
                     if (clean.joinedDate === '') clean.joinedDate = null;
                     if (clean.age === '') clean.age = null; // handle empty strings for integers if any
+                    if (clean.picture === '') clean.picture = null; // handle empty picture field
 
                     return clean;
                 };
